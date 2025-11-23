@@ -26,7 +26,7 @@ namespace BibliotecaDigital
 
     class Programa
     {
-        static void Main()
+        static void Main() 
         {
             
             List<Libro> libros = new List<Libro>()

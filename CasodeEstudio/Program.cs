@@ -26,7 +26,7 @@ namespace BibliotecaDigital
 
     class Programa
     {
-        static void Main() 
+        static void Main()
         {
             
             List<Libro> libros = new List<Libro>()
@@ -115,6 +115,62 @@ namespace BibliotecaDigital
 
         
 
-  
+        static Libro BusquedaLineal(List<Libro> lista, string titulo)
+        {
+            foreach (var libro in lista)
+            {
+                if (libro.Titulo.Equals(titulo, StringComparison.OrdinalIgnoreCase))
+                    return libro;
+            }
+            return null;
+        }
+
+        static int BusquedaBinaria(List<string> lista, string valor)
+        {
+            int izquierda = 0;
+            int derecha = lista.Count - 1;
+            while (izquierda <= derecha)
+            {
+                int medio = (izquierda + derecha) / 2;
+                int comparacion = string.Compare(lista[medio], valor, true);
+                if (comparacion == 0) return medio;
+                else if (comparacion < 0) izquierda = medio + 1;
+                else derecha = medio - 1;
+            }
+            return -1;
+        }
+
+        static Libro LibromasReciente(List<Libro> lista)
+        {
+            Libro reciente = lista[0];
+            foreach (var libro in lista)
+            {
+                if (libro.Anio > reciente.Anio)
+                    reciente = libro;
+            }
+            return reciente;
+        }
+
+        static Libro LibromasAntiguo(List<Libro> lista)
+        {
+            Libro antiguo = lista[0];
+            foreach (var libro in lista)
+            {
+                if (libro.Anio < antiguo.Anio)
+                    antiguo = libro;
+            }
+            return antiguo;
+        }
+
+        static List<Libro> BuscarPorDescripcion(List<Libro> lista, string keyword)
+        {
+            List<Libro> resultados = new List<Libro>();
+            foreach (var libro in lista)
+            {
+                if (libro.Descripcion.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                    resultados.Add(libro);
+            }
+            return resultados;
+        }
     }
 }
